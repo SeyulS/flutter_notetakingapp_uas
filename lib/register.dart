@@ -85,7 +85,7 @@ class _RegistPageState extends State<RegistPage> {
   void _showPinChangeNotification() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('PIN Successfully changed'),
+        content: Text('PIN Successfully registered'),
         duration: Duration(seconds: 2),
         backgroundColor: Colors.green,
       ),

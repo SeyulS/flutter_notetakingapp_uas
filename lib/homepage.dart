@@ -1,3 +1,4 @@
+import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_notetakingapp_uas/confirmation.dart';
 import 'package:flutter_notetakingapp_uas/create.dart';
@@ -19,11 +20,12 @@ class _HomePageState extends State<HomePage> {
   String data = "";
   int _crossAxisCount = 2;
   bool _isAscending = true;
-  bool _sortByModifiedDate = true; // True for modified date, false for created date
+  bool _sortByModifiedDate = true;
   List<String> sortedKeys = [];
 
   @override
   void initState() {
+    super.initState();
     sortedKeys = _myBox.keys.cast<String>().toList();
     sortByDate();
   }
@@ -31,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   void writeData(String title, String content) {
     String _date = DateTime.now().toString();
     _myBox.put(
-        title, {'content': content, 'date': _date, 'modified_date': _date});
+        Faker().guid.guid(), {'title': title, 'content': content, 'date': _date, 'modified_date': _date});
     setState(() {
       data = content;
       sortedKeys = _myBox.keys.cast<String>().toList();
@@ -57,7 +59,20 @@ class _HomePageState extends State<HomePage> {
     var created = note['date'];
     note['content'] = newContent;
     _myBox.put(key,
-        {'content': note['content'], 'date': created, 'modified_date': _date});
+        {'title': note['title'], 'content': note['content'], 'date': created, 'modified_date': _date});
+    setState(() {
+      sortedKeys = _myBox.keys.cast<String>().toList();
+      sortByDate();
+    });
+  }
+
+  void updateTitle(String key, String newTitle) {
+    String _date = DateTime.now().toString();
+    var note = _myBox.get(key);
+    var created = note['date'];
+    note['title'] = newTitle;
+    _myBox.put(key,
+        {'title': note['title'], 'content': note['content'], 'date': created, 'modified_date': _date});
     setState(() {
       sortedKeys = _myBox.keys.cast<String>().toList();
       sortByDate();
@@ -206,18 +221,23 @@ class _HomePageState extends State<HomePage> {
                     String content = value['content']!;
                     String date = value['date']!;
                     String modified_date = value['modified_date']!;
+                    String title = value['title']!;
                     return GestureDetector(
                       onTap: () async {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => EditPage(
-                              title: key,
+                              id: key,
+                              title: title,
                               content: content,
                               date: date,
                               modified_date: modified_date,
                               onUpdateContent: (newContent) {
                                 updateContent(key, newContent);
+                              },
+                              onUpdateTitle: (newTitle){
+                                updateTitle(key, newTitle);
                               },
                               onDelete: () {
                                 deleteData(key);
@@ -263,7 +283,7 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(height: 10),
                           Center(
                             child: Text(
-                              key,
+                              title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(

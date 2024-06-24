@@ -1,22 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_notetakingapp_uas/homepage.dart';
 
-class EditPage extends StatelessWidget {
+class EditPage extends StatefulWidget {
+  final String id;
   final String title;
   final String content;
   final String date;
   final String modified_date;
   final Function(String) onUpdateContent;
+  final Function(String) onUpdateTitle;
   final VoidCallback onDelete;
 
   EditPage({
+    required this.id,
     required this.title,
     required this.content,
     required this.date,
     required this.modified_date,
     required this.onUpdateContent,
+    required this.onUpdateTitle,
     required this.onDelete,
   });
+
+  @override
+  _EditPageState createState() => _EditPageState();
+}
+
+class _EditPageState extends State<EditPage> {
+  late TextEditingController contentController;
+  late TextEditingController titleController;
+
+  @override
+  void initState() {
+    super.initState();
+    contentController = TextEditingController(text: widget.content);
+    titleController = TextEditingController(text: widget.title);
+  }
 
   String timeAgo(String timestamp) {
     DateTime now = DateTime.now();
@@ -69,23 +88,27 @@ class EditPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController contentController =
-        TextEditingController(text: content);
-
-    String displayTitle =
-        title.length > 10 ? '${title.substring(0, 10)}...' : title;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Tooltip(
-          message: title, // Menampilkan teks lengkap saat dihover
+          message: widget.title, // Menampilkan teks lengkap saat dihover
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                displayTitle,
-                style: TextStyle(color: Colors.white),
+              Expanded(
+                child: TextField(
+                  controller: titleController,
+                  onChanged: (newText) {
+                    widget.onUpdateTitle(newText);
+                  },
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  decoration: InputDecoration(
+                    hintText: 'Title',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: InputBorder.none,
+                  ),
+                ),
               ),
               IconButton(
                 icon: Icon(Icons.delete, color: Colors.white),
@@ -106,7 +129,7 @@ class EditPage extends StatelessWidget {
                           ),
                           TextButton(
                             onPressed: () {
-                              onDelete();
+                              widget.onDelete();
                               Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
@@ -139,7 +162,7 @@ class EditPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Created on ${formatDate(date)}',
+              'Created on ${formatDate(widget.date)}',
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.grey[400],
@@ -156,7 +179,7 @@ class EditPage extends StatelessWidget {
                 child: TextField(
                   controller: contentController,
                   onChanged: (newText) {
-                    onUpdateContent(newText);
+                    widget.onUpdateContent(newText);
                   },
                   maxLines: null,
                   style: TextStyle(color: Colors.white),
