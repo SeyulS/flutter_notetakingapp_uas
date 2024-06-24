@@ -8,8 +8,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   await Hive.initFlutter();
-  await Hive.openBox('myBox');
-  await Hive.openBox('mypinuser');
+  await Hive.openBox('myNote');
+  await Hive.openBox('myPin');
   runApp(const MainApp());
 }
 

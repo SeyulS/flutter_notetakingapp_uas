@@ -12,7 +12,7 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-  final _userPIN = Hive.box('mypinuser');
+  final _userPIN = Hive.box('myPin');
   List<bool> _pinFilled = List.generate(6, (index) => false);
   String _currentPin = '';
 

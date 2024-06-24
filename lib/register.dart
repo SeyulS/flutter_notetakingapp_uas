@@ -13,7 +13,7 @@ class RegistPage extends StatefulWidget {
 }
 
 class _RegistPageState extends State<RegistPage> {
-  final _userPIN = Hive.box('mypinuser');
+  final _userPIN = Hive.box('myPin');
   List<bool> _pinFilled = List.generate(6, (index) => false);
   String _currentPin = '';
 

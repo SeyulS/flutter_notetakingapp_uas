@@ -12,7 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _userPIN = Hive.box('mypinuser');
+  final _userPIN = Hive.box('myPin');
   List<bool> _pinFilled = List.generate(6, (index) => false);
   String _currentPin = '';
   bool _pinError = false;

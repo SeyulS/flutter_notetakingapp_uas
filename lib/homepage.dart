@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _myBox = Hive.box('myBox');
+  final _myBox = Hive.box('myNote');
   final _key = TextEditingController();
   final _val = TextEditingController();
   String data = "";

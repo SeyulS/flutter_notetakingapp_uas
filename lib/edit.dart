@@ -92,7 +92,7 @@ class _EditPageState extends State<EditPage> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Tooltip(
-          message: widget.title, // Menampilkan teks lengkap saat dihover
+          message: widget.title, 
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
