@@ -190,14 +190,32 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(Icons.date_range,color: Colors.white, size: 17,),
+                      Icon(
+                        Icons.date_range,
+                        color: Colors.white,
+                        size: 17,
+                      ),
                       TextButton(
                         onPressed: _toggleSortBy,
-                        child: Text(_sortByModifiedDate ? 'Sort by Modified Date' : 'Sort by Created Date',style: TextStyle(fontSize: 14,color: Colors.white),),
+                        child: Text(
+                          _sortByModifiedDate
+                              ? 'Sort by Modified Date'
+                              : 'Sort by Created Date',
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        ),
                       ),
-                      Text('|', style: TextStyle(color: Colors.white, fontSize: 16),),
+                      Text(
+                        '|',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
                       IconButton(
-                        icon: Icon(_isAscending ? Icons.arrow_upward : Icons.arrow_downward, size: 17, color: Colors.white,),
+                        icon: Icon(
+                          _isAscending
+                              ? Icons.arrow_upward
+                              : Icons.arrow_downward,
+                          size: 17,
+                          color: Colors.white,
+                        ),
                         onPressed: _toggleSortOrder,
                       ),
                     ],
@@ -236,7 +254,7 @@ class _HomePageState extends State<HomePage> {
                               onUpdateContent: (newContent) {
                                 updateContent(key, newContent);
                               },
-                              onUpdateTitle: (newTitle){
+                              onUpdateTitle: (newTitle) {
                                 updateTitle(key, newTitle);
                               },
                               onDelete: () {
@@ -254,7 +272,7 @@ class _HomePageState extends State<HomePage> {
                             height: 250,
                             width: double.infinity,
                             child: Card(
-                              color: Color.fromARGB(171, 19, 18, 18),
+                              color: Colors.grey[800],
                               elevation: 5,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -268,10 +286,10 @@ class _HomePageState extends State<HomePage> {
                                       child: Text(
                                         content,
                                         maxLines: 10,
-                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: Colors.white,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
                                     ),
@@ -285,11 +303,12 @@ class _HomePageState extends State<HomePage> {
                             child: Text(
                               title,
                               maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
+                                overflow: TextOverflow.ellipsis,
                                 fontSize: 16,
                                 color: Colors.white,
                               ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                           SizedBox(height: 5),
@@ -297,14 +316,17 @@ class _HomePageState extends State<HomePage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.date_range, color: Colors.white, size: 13),
+                                Icon(Icons.date_range,
+                                    color: Colors.white, size: 13),
                                 SizedBox(width: 5),
                                 Text(
                                   '${formatDate(modified_date)} (${timeAgo(modified_date)})',
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: Colors.grey[400],
+                                    overflow: TextOverflow.ellipsis,
                                   ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),
